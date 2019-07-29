@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <div>
+      <input id="user-input" />
+      <button id="button">Get Photos</button>
+    </div>
+    <section id="display"></section>
+    <script async defer>
+      const button = document.getElementById("button");
+      const inputField = document.getElementById("user-input");
+
+      async function getPhotos() {
+        const tags = inputField.value;
+        const response = await fetch(`/search/${tags}`);
+        const photos_json = await response.json();
+        console.log(photos_json);
+      }
+
+      button.addEventListener("click", () => getPhotos());
+    </script>
+  </body>
+</html>
