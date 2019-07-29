@@ -12,7 +12,8 @@ app.get("/search/:tags", async (req, res) => {
     `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bef3b787ed7580c3ed7e1b838d2465df&format=json&tags=${tags}&nojsoncallback=1`
   );
   const photos = await flickr_req.json();
-  res.send(photos);
+  console.log(photos);
+  res.json(photos);
 });
 
 app.listen(3000, () => {

@@ -10,7 +10,7 @@
   </head>
   <body>
     <div>
-      <input id="user-input" />
+      <input id="user-input" value="dog" />
       <button id="button">Get Photos</button>
     </div>
     <section id="display"></section>
@@ -23,6 +23,26 @@
         const response = await fetch(`/search/${tags}`);
         const photos_json = await response.json();
         console.log(photos_json);
+        displayPhotos(photos_json);
+      }
+
+      function displayPhotos(photos_json) {
+        const photosArray = photos_json.photos.photo;
+        const photoURLs = photosArray.map(photo => {
+          return createURL(photo.id, photo.server, photo.farm, photo.secret);
+        });
+
+        for (let i = 0; i < 10; i++) {
+          const img = document.createElement("img");
+          img.src = photoURLs[i];
+
+          document.getElementById("display").append(img);
+        }
+      }
+
+      function createURL(id, server_id, farm_id, secret) {
+        const photo_url = `https://farm${farm_id}.staticflickr.com/${server_id}/${id}_${secret}.jpg`;
+        return photo_url;
       }
 
       button.addEventListener("click", () => getPhotos());
